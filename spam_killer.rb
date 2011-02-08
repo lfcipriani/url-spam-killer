@@ -51,13 +51,13 @@ module SpamKiller
         !(host =~ /(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/).nil?
       end
   
-      def check_surbl(host)
-        tld = SpamKiller::TLDS.select {|v| host =~ /#{v}$/}
-        if tld.size > 0
-          tld_size = tld.last.split(".").size
-          host = host.split(".")[-1-(tld_size)..-1].join(".")  
-        elsif is_ip_address?(host)
-          host = host.split(".").reverse.join(".")
+      def check_surbl(host)        
+        if is_ip_address?(host)
+           host = host.split(".").reverse.join(".")
+        else
+          tld = SpamKiller::TLDS.select {|v| host =~ /#{v}$/}
+          tld_size = tld.size > 0 ? tld.last.split(".").size : 1
+          host = host.split(".")[-1-(tld_size)..-1].join(".")
         end
         address = dns_resolv("#{host}.multi.surbl.org")
         if address.nil?
