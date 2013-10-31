@@ -8,3 +8,6 @@ To use it, check `spam_killer.rb` file.
 
 - gemify
 - organize code
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/lfcipriani/url-spam-killer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
